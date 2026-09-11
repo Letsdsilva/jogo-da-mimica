@@ -1,0 +1,957 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #0c542d,
+            #031a10 45%,
+            #010805
+        );
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   TELAS
+========================= */
+
+.tela {
+
+    display: none;
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    padding: 35px 20px;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 20px;
+}
+
+
+.tela.ativa {
+    display: flex;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+
+    font-size: 80px;
+
+    filter:
+        drop-shadow(0 0 15px #00ff73)
+        drop-shadow(0 0 35px #00ff73);
+
+}
+
+
+.logo.pequeno {
+    font-size: 55px;
+}
+
+
+h1 {
+
+    font-size: clamp(38px, 7vw, 75px);
+
+    letter-spacing: 4px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px #00ff73,
+        0 0 30px #00ff73;
+
+}
+
+
+.subtitulo {
+
+    font-size: 22px;
+
+    color: #baffd5;
+
+    text-align: center;
+
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+
+    width: min(700px, 95vw);
+
+    padding: 25px;
+
+    border:
+        2px solid #00ff73;
+
+    border-radius: 18px;
+
+    background:
+        rgba(0, 30, 17, 0.85);
+
+    box-shadow:
+        0 0 15px rgba(0, 255, 115, 0.25),
+        inset 0 0 20px rgba(0, 255, 115, 0.05);
+
+}
+
+
+.card h2 {
+
+    margin-bottom: 15px;
+
+    color: #00ff73;
+
+    text-align: center;
+
+}
+
+
+.instrucoes p {
+
+    margin: 8px 0;
+
+    font-size: 17px;
+
+    color: #e7fff0;
+
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.cadastro {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.cadastro h2 {
+    margin-bottom: 5px;
+}
+
+
+input {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: 2px solid #087d40;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #02140b;
+
+    color: white;
+
+    font-size: 17px;
+
+    transition: 0.2s;
+}
+
+
+input:focus {
+
+    border-color: #00ff73;
+
+    box-shadow:
+        0 0 15px rgba(0,255,115,0.5);
+}
+
+
+input::placeholder {
+    color: #8aa998;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.btn {
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 17px 30px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s,
+        opacity 0.15s;
+
+}
+
+
+.btn:hover {
+
+    transform: scale(1.04);
+
+}
+
+
+.btn:active {
+
+    transform: scale(0.97);
+
+}
+
+
+.principal {
+
+    margin-top: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00ff73,
+            #00c95a
+        );
+
+    color: #001a0b;
+
+    box-shadow:
+        0 0 15px #00ff73,
+        0 0 35px rgba(0,255,115,0.5);
+
+}
+
+
+.principal:hover {
+
+    box-shadow:
+        0 0 25px #00ff73,
+        0 0 50px rgba(0,255,115,0.7);
+
+}
+
+
+/* =========================
+   DUPLAS
+========================= */
+
+#listaDuplas {
+
+    width: min(850px, 95vw);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+}
+
+
+.dupla-card {
+
+    padding: 25px;
+
+    border:
+        2px solid #00ff73;
+
+    border-radius: 18px;
+
+    background:
+        rgba(0,30,17,0.8);
+
+    text-align: center;
+
+    box-shadow:
+        0 0 15px rgba(0,255,115,0.2);
+
+}
+
+
+.dupla-card h3 {
+
+    color: #00ff73;
+
+    font-size: 23px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.dupla-card p {
+
+    margin: 8px 0;
+
+    color: #dffff0;
+
+}
+
+
+/* =========================
+   TOPO DO JOGO
+========================= */
+
+.topoJogo {
+
+    width: min(1100px, 96vw);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    gap: 15px;
+
+}
+
+
+.infoJogo {
+
+    padding: 15px;
+
+    border:
+        2px solid #087d40;
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,25,14,0.8);
+
+    text-align: center;
+}
+
+
+.infoJogo span {
+
+    display: block;
+
+    color: #9ac9aa;
+
+    font-size: 13px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.infoJogo strong {
+
+    color: #00ff73;
+
+    font-size: 24px;
+
+}
+
+
+/* =========================
+   TEMPO
+========================= */
+
+.tempo-box {
+
+    width: 230px;
+
+    height: 170px;
+
+    margin: 10px 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border:
+        4px solid #00ff73;
+
+    border-radius: 25px;
+
+    background:
+        rgba(0,25,14,0.9);
+
+    box-shadow:
+        0 0 20px rgba(0,255,115,0.4);
+
+}
+
+
+.tempo-box span {
+
+    font-size: 25px;
+
+}
+
+
+.tempo-box strong {
+
+    font-size: 75px;
+
+    line-height: 1;
+
+    color: #00ff73;
+
+    text-shadow:
+        0 0 15px #00ff73;
+
+}
+
+
+.tempo-box small {
+
+    color: #9ac9aa;
+
+    margin-top: 8px;
+
+}
+
+
+.tempo-box.urgente {
+
+    border-color: #ff355d;
+
+    box-shadow:
+        0 0 25px rgba(255,53,93,0.8);
+
+    animation:
+        piscar 0.7s infinite;
+
+}
+
+
+.tempo-box.urgente strong {
+
+    color: #ff355d;
+
+    text-shadow:
+        0 0 15px #ff355d;
+
+}
+
+
+@keyframes piscar {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+}
+
+
+/* =========================
+   FUNÇÕES
+========================= */
+
+.funcoes {
+
+    width: min(850px, 95vw);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+
+}
+
+
+.funcao {
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(0,35,20,0.8);
+
+    border:
+        2px solid #087d40;
+
+    text-align: center;
+
+}
+
+
+.funcao span {
+
+    display: block;
+
+    color: #9ac9aa;
+
+    margin-bottom: 8px;
+
+}
+
+
+.funcao strong {
+
+    font-size: 25px;
+
+    color: white;
+
+}
+
+
+/* =========================
+   PALAVRA
+========================= */
+
+.palavra-container {
+
+    width: min(900px, 95vw);
+
+    padding: 35px;
+
+    border:
+        3px solid #00ff73;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,55,30,0.95),
+            rgba(0,20,11,0.95)
+        );
+
+    text-align: center;
+
+    box-shadow:
+        0 0 25px rgba(0,255,115,0.3);
+
+}
+
+
+.palavra-container p {
+
+    color: #9ac9aa;
+
+    font-size: 16px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.palavra {
+
+    font-size: clamp(42px, 8vw, 85px);
+
+    font-weight: 900;
+
+    color: #ffffff;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 10px #00ff73,
+        0 0 30px #00ff73;
+
+}
+
+
+/* =========================
+   BOTÕES DO JOGO
+========================= */
+
+.botoesJogo {
+
+    width: min(900px, 95vw);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    gap: 15px;
+
+}
+
+
+.btn-acertou {
+
+    background: #00ff73;
+
+    color: #001a0b;
+
+    box-shadow:
+        0 0 15px rgba(0,255,115,0.5);
+
+}
+
+
+.btn-erro {
+
+    background: #ff355d;
+
+    color: white;
+
+    box-shadow:
+        0 0 15px rgba(255,53,93,0.4);
+
+}
+
+
+.btn-passar {
+
+    background: #ffd43b;
+
+    color: #241d00;
+
+    box-shadow:
+        0 0 15px rgba(255,212,59,0.35);
+
+}
+
+
+.btn-passar:disabled {
+
+    opacity: 0.35;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+.btn-pausar {
+
+    background: white;
+
+    color: #031a10;
+
+}
+
+
+.btn-pausar:hover {
+
+    box-shadow:
+        0 0 15px white;
+
+}
+
+
+/* =========================
+   RESULTADO
+========================= */
+
+.resultado {
+
+    width: min(650px, 95vw);
+
+    padding: 40px;
+
+    border:
+        3px solid #00ff73;
+
+    border-radius: 25px;
+
+    background:
+        rgba(0,30,17,0.9);
+
+    text-align: center;
+
+    box-shadow:
+        0 0 30px rgba(0,255,115,0.3);
+
+}
+
+
+.iconeResultado {
+
+    font-size: 70px;
+
+}
+
+
+.resultado h2 {
+
+    margin: 20px 0;
+
+    color: #00ff73;
+
+    font-size: 35px;
+
+}
+
+
+.pontuacaoResultado,
+.totalResultado {
+
+    margin: 15px auto;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background: #031a10;
+
+}
+
+
+.pontuacaoResultado span,
+.totalResultado span {
+
+    display: block;
+
+    color: #9ac9aa;
+
+}
+
+
+.pontuacaoResultado strong,
+.totalResultado strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 45px;
+
+    color: #00ff73;
+
+}
+
+
+/* =========================
+   RANKING
+========================= */
+
+#rankingFinal {
+
+    width: min(750px, 95vw);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+.ranking-item {
+
+    display: grid;
+
+    grid-template-columns:
+        70px 1fr 100px;
+
+    align-items: center;
+
+    padding: 18px 22px;
+
+    border-radius: 15px;
+
+    border:
+        2px solid #087d40;
+
+    background:
+        rgba(0,30,17,0.9);
+
+}
+
+
+.ranking-posicao {
+
+    font-size: 32px;
+
+}
+
+
+.ranking-nome {
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+}
+
+
+.ranking-pontos {
+
+    text-align: right;
+
+    font-size: 25px;
+
+    color: #00ff73;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   CAMPEÃO
+========================= */
+
+.trofeu {
+
+    font-size: 130px;
+
+    filter:
+        drop-shadow(0 0 25px #00ff73);
+
+    animation:
+        trofeuAnim 1.5s infinite alternate;
+
+}
+
+
+@keyframes trofeuAnim {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.1) rotate(3deg);
+    }
+
+}
+
+
+.campeaoNome {
+
+    font-size: clamp(40px, 8vw, 75px);
+
+    font-weight: 900;
+
+    color: #00ff73;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 15px #00ff73,
+        0 0 40px #00ff73;
+
+}
+
+
+.campeaoPontos {
+
+    font-size: 30px;
+
+    color: white;
+
+}
+
+
+.confetes {
+
+    font-size: 35px;
+
+    letter-spacing: 15px;
+
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 750px) {
+
+    #listaDuplas {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .topoJogo {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .funcoes {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .botoesJogo {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .palavra-container {
+
+        padding: 25px 15px;
+
+    }
+
+
+    .ranking-item {
+
+        grid-template-columns:
+            55px 1fr 80px;
+
+    }
+
+}
