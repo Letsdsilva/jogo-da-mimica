@@ -1,35 +1,433 @@
-function atualizarInformacoes() {
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-    const dupla = duplas[indiceDupla];
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    document.getElementById("nomeDuplaAtual")
-        .textContent = dupla.nome;
+    <title>Mega Mímica</title>
 
-    document.getElementById("pontuacaoAtual")
-        .textContent = dupla.pontos + pontosRodada;
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    document.getElementById("numeroRodada")
-        .textContent = `${rodadaDaDupla} / 3`;
+<body>
 
-    // Rodada 1 e 3: função inicial
-    // Rodada 2: troca de função
+    <!-- TELA INICIAL -->
 
-    if (rodadaDaDupla === 2) {
+    <section id="telaInicial" class="tela ativa">
 
-        document.getElementById("quemFaz")
-            .textContent = dupla.jogador2;
+        <div class="logo">🎭</div>
 
-        document.getElementById("quemAdivinha")
-            .textContent = dupla.jogador1;
+        <h1>MEGA MÍMICA</h1>
 
-    } else {
+        <p class="subtitulo">
+            O desafio começa agora!
+        </p>
 
-        document.getElementById("quemFaz")
-            .textContent = dupla.jogador1;
+        <div class="card instrucoes">
 
-        document.getElementById("quemAdivinha")
-            .textContent = dupla.jogador2;
+            <h2>📋 COMO JOGAR</h2>
 
-    }
+            <p>👥 3 duplas participam.</p>
+            <p>⏱️ Cada rodada tem 60 segundos.</p>
+            <p>🎭 Um jogador faz a mímica e o outro tenta adivinhar.</p>
+            <p>🔄 Na segunda rodada os jogadores trocam de função.</p>
+            <p>✅ Acertou = +1 ponto.</p>
+            <p>❌ Errou = próxima palavra.</p>
+            <p>⏭️ Cada rodada possui 5 passes.</p>
+            <p>🚫 Nenhuma palavra será repetida durante a partida.</p>
 
-}
+        </div>
+
+
+        <!-- DUPLA 1 -->
+
+        <div class="card cadastro">
+
+            <h2>🟢 DUPLA 1</h2>
+
+            <input
+                type="text"
+                id="dupla1Nome"
+                placeholder="Nome da dupla"
+            >
+
+            <input
+                type="text"
+                id="dupla1Jogador1"
+                placeholder="Jogador 1"
+            >
+
+            <input
+                type="text"
+                id="dupla1Jogador2"
+                placeholder="Jogador 2"
+            >
+
+        </div>
+
+
+        <!-- DUPLA 2 -->
+
+        <div class="card cadastro">
+
+            <h2>🟢 DUPLA 2</h2>
+
+            <input
+                type="text"
+                id="dupla2Nome"
+                placeholder="Nome da dupla"
+            >
+
+            <input
+                type="text"
+                id="dupla2Jogador1"
+                placeholder="Jogador 1"
+            >
+
+            <input
+                type="text"
+                id="dupla2Jogador2"
+                placeholder="Jogador 2"
+            >
+
+        </div>
+
+
+        <!-- DUPLA 3 -->
+
+        <div class="card cadastro">
+
+            <h2>🟢 DUPLA 3</h2>
+
+            <input
+                type="text"
+                id="dupla3Nome"
+                placeholder="Nome da dupla"
+            >
+
+            <input
+                type="text"
+                id="dupla3Jogador1"
+                placeholder="Jogador 1"
+            >
+
+            <input
+                type="text"
+                id="dupla3Jogador2"
+                placeholder="Jogador 2"
+            >
+
+        </div>
+
+
+        <button
+            class="btn principal"
+            onclick="iniciarJogo()"
+        >
+            🎬 COMEÇAR JOGO
+        </button>
+
+    </section>
+
+
+    <!-- TELA DAS DUPLAS -->
+
+    <section id="telaDuplas" class="tela">
+
+        <div class="logo pequeno">🎭</div>
+
+        <h1>MEGA MÍMICA</h1>
+
+        <h2>👥 DUPLAS PARTICIPANTES</h2>
+
+        <div id="listaDuplas"></div>
+
+        <button
+            class="btn principal"
+            onclick="iniciarProximaRodada()"
+        >
+            🚀 COMEÇAR RODADA 1
+        </button>
+
+    </section>
+
+
+    <!-- TELA DO JOGO -->
+
+    <section id="telaJogo" class="tela">
+
+        <div class="topoJogo">
+
+            <div class="infoJogo">
+
+                <span>🎭 DUPLA</span>
+
+                <strong id="nomeDuplaAtual">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="infoJogo">
+
+                <span>🏆 PONTOS</span>
+
+                <strong id="pontuacaoAtual">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="infoJogo">
+
+                <span>🔄 RODADA</span>
+
+                <strong id="numeroRodada">
+                    1 / 3
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- CRONÔMETRO -->
+
+        <div
+            id="tempoBox"
+            class="tempo-box"
+        >
+
+            <span>⏱️</span>
+
+            <strong id="tempo">
+                60
+            </strong>
+
+            <small>
+                SEGUNDOS
+            </small>
+
+        </div>
+
+
+        <!-- FUNÇÕES -->
+
+        <div class="funcoes">
+
+            <div class="funcao">
+
+                <span>🎭 FAZ A MÍMICA</span>
+
+                <strong id="quemFaz">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="funcao">
+
+                <span>👀 ADIVINHA</span>
+
+                <strong id="quemAdivinha">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- PALAVRA -->
+
+        <div class="palavra-container">
+
+            <p>
+                FAÇA A MÍMICA DE:
+            </p>
+
+            <div
+                id="palavra"
+                class="palavra"
+            >
+                PREPARE-SE!
+            </div>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+
+        <div class="botoesJogo">
+
+            <button
+                id="btnPassar"
+                class="btn btn-passar"
+                onclick="passar()"
+            >
+                ⏭️ PASSAR (5)
+            </button>
+
+
+            <button
+                class="btn btn-acertou"
+                onclick="acertou()"
+            >
+                ✅ ACERTOU
+            </button>
+
+
+            <button
+                class="btn btn-erro"
+                onclick="errou()"
+            >
+                ❌ ERRO
+            </button>
+
+        </div>
+
+
+        <button
+            id="btnPausar"
+            class="btn btn-pausar"
+            onclick="pausarJogo()"
+        >
+            ⏸️ PAUSAR
+        </button>
+
+    </section>
+
+
+    <!-- TELA DE RESULTADO -->
+
+    <section id="telaResultado" class="tela">
+
+        <div class="resultado">
+
+            <div class="iconeResultado">
+                🎉
+            </div>
+
+            <h1>
+                RODADA ENCERRADA!
+            </h1>
+
+            <h2 id="resultadoDupla">
+                —
+            </h2>
+
+            <div class="pontuacaoResultado">
+
+                <span>
+                    PONTOS NA RODADA
+                </span>
+
+                <strong id="pontosRodadaResultado">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="totalResultado">
+
+                <span>
+                    TOTAL DA DUPLA
+                </span>
+
+                <strong id="totalDuplaResultado">
+                    0
+                </strong>
+
+            </div>
+
+
+            <button
+                class="btn principal"
+                onclick="continuarJogo()"
+            >
+                ➡️ CONTINUAR
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- RANKING -->
+
+    <section id="telaRanking" class="tela">
+
+        <div class="logo pequeno">
+            🏆
+        </div>
+
+        <h1>
+            RANKING FINAL
+        </h1>
+
+        <div id="rankingFinal"></div>
+
+        <button
+            class="btn principal"
+            onclick="mostrarCampeao()"
+        >
+            🏆 VER CAMPEÃO
+        </button>
+
+    </section>
+
+
+    <!-- CAMPEÃO -->
+
+    <section id="telaCampeao" class="tela">
+
+        <div class="confetes">
+            🎉 🎊 🎉 🎊 🎉
+        </div>
+
+        <div class="trofeu">
+            🏆
+        </div>
+
+        <h1>
+            CAMPEÃO!
+        </h1>
+
+        <div
+            id="nomeCampeao"
+            class="campeaoNome"
+        >
+            —
+        </div>
+
+        <div
+            id="pontuacaoCampeao"
+            class="campeaoPontos"
+        >
+            0 PONTOS
+        </div>
+
+        <div class="confetes">
+            🎊 🎉 🎊 🎉 🎊
+        </div>
+
+        <button
+            class="btn principal"
+            onclick="location.reload()"
+        >
+            🔄 NOVO JOGO
+        </button>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
