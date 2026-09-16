@@ -1,10 +1,13 @@
 
 /* ======================================================
    MEGA MÍMICA
+   3 CIRCUITOS • 6 PARTICIPANTES • 18 TURNOS
 ====================================================== */
 
 const TEMPO_RODADA = 60;
 const PASSES_INICIAIS = 5;
+const TOTAL_CIRCUITOS = 3;
+const TOTAL_PARTICIPANTES = 6;
 
 /* ======================================================
    PALAVRAS
@@ -56,13 +59,18 @@ const palavras = [
 ====================================================== */
 
 let duplas = [];
-let indiceDupla = 0;
-let rodadaDaDupla = 1;
+
+let circuitoAtual = 1;
+let indiceParticipante = 0;
+
 let pontosRodada = 0;
 let passesRestantes = PASSES_INICIAIS;
 let tempoRestante = TEMPO_RODADA;
+
 let intervalo = null;
 let jogoPausado = false;
+let rodadaFinalizada = false;
+
 let palavraAtual = "";
 let palavrasDisponiveis = [];
 let audioContext = null;
@@ -79,8 +87,8 @@ function iniciarJogo() {
         criarDupla("dupla3Nome", "dupla3Jogador1", "dupla3Jogador2", "Dupla 3")
     ];
 
-    indiceDupla = 0;
-    rodadaDaDupla = 1;
+    circuitoAtual = 1;
+    indiceParticipante = 0;
     pontosRodada = 0;
     palavrasDisponiveis = [...palavras];
 
@@ -137,7 +145,38 @@ function mostrarListaDuplas() {
 }
 
 /* ======================================================
-   INICIAR RODADA
+   IDENTIFICAR PARTICIPANTE ATUAL
+====================================================== */
+
+function obterParticipanteAtual() {
+
+    const indiceDupla = Math.floor(indiceParticipante / 2);
+    const jogadorNumero = indiceParticipante % 2;
+
+    const dupla = duplas[indiceDupla];
+
+    if (jogadorNumero === 0) {
+
+        return {
+            dupla,
+            indiceDupla,
+            quemFaz: dupla.jogador1,
+            quemAdivinha: dupla.jogador2
+        };
+
+    } else {
+
+        return {
+            dupla,
+            indiceDupla,
+            quemFaz: dupla.jogador2,
+            quemAdivinha: dupla.jogador1
+        };
+    }
+}
+
+/* ======================================================
+   INICIAR TURNO
 ====================================================== */
 
 function iniciarProximaRodada() {
@@ -148,6 +187,7 @@ function iniciarProximaRodada() {
     passesRestantes = PASSES_INICIAIS;
     tempoRestante = TEMPO_RODADA;
     jogoPausado = false;
+    rodadaFinalizada = false;
 
     const tempoBox = document.getElementById("tempoBox");
 
@@ -173,7 +213,8 @@ function iniciarProximaRodada() {
 
 function atualizarInformacoes() {
 
-    const dupla = duplas[indiceDupla];
+    const participante = obterParticipanteAtual();
+    const dupla = participante.dupla;
 
     document.getElementById("nomeDuplaAtual")
         .textContent = dupla.nome;
@@ -182,24 +223,14 @@ function atualizarInformacoes() {
         .textContent = dupla.pontos + pontosRodada;
 
     document.getElementById("numeroRodada")
-        .textContent = `${rodadaDaDupla} / 3`;
+        .textContent =
+        `Circuito ${circuitoAtual}/${TOTAL_CIRCUITOS} • Participante ${indiceParticipante + 1}/${TOTAL_PARTICIPANTES}`;
 
-    if (rodadaDaDupla === 2) {
+    document.getElementById("quemFaz")
+        .textContent = participante.quemFaz;
 
-        document.getElementById("quemFaz")
-            .textContent = dupla.jogador2;
-
-        document.getElementById("quemAdivinha")
-            .textContent = dupla.jogador1;
-
-    } else {
-
-        document.getElementById("quemFaz")
-            .textContent = dupla.jogador1;
-
-        document.getElementById("quemAdivinha")
-            .textContent = dupla.jogador2;
-    }
+    document.getElementById("quemAdivinha")
+        .textContent = participante.quemAdivinha;
 }
 
 /* ======================================================
@@ -236,7 +267,7 @@ function iniciarCronometro() {
 
     intervalo = setInterval(() => {
 
-        if (jogoPausado) return;
+        if (jogoPausado || rodadaFinalizada) return;
 
         tempoRestante--;
 
@@ -275,7 +306,7 @@ function atualizarTempo() {
 
 function acertou() {
 
-    if (jogoPausado) return;
+    if (jogoPausado || rodadaFinalizada) return;
 
     pontosRodada++;
 
@@ -289,7 +320,7 @@ function acertou() {
 
 function errou() {
 
-    if (jogoPausado) return;
+    if (jogoPausado || rodadaFinalizada) return;
 
     mostrarNovaPalavra();
 }
@@ -300,7 +331,7 @@ function errou() {
 
 function passar() {
 
-    if (jogoPausado) return;
+    if (jogoPausado || rodadaFinalizada) return;
 
     if (passesRestantes <= 0) return;
 
@@ -328,6 +359,8 @@ function atualizarBotaoPassar() {
 
 function pausarJogo() {
 
+    if (rodadaFinalizada) return;
+
     jogoPausado = !jogoPausado;
 
     const botao = document.getElementById("btnPausar");
@@ -344,14 +377,19 @@ function pausarJogo() {
 }
 
 /* ======================================================
-   FINALIZAR RODADA
+   FINALIZAR TURNO
 ====================================================== */
 
 function finalizarRodada() {
 
+    if (rodadaFinalizada) return;
+
+    rodadaFinalizada = true;
+
     clearInterval(intervalo);
 
-    const dupla = duplas[indiceDupla];
+    const participante = obterParticipanteAtual();
+    const dupla = participante.dupla;
 
     dupla.pontos += pontosRodada;
 
@@ -378,30 +416,31 @@ function finalizarRodada() {
 
 function continuarJogo() {
 
-    // Continua para a próxima rodada da mesma dupla
-    if (rodadaDaDupla < 3) {
+    indiceParticipante++;
 
-        rodadaDaDupla++;
+    /*
+       Quando os 6 participantes terminarem,
+       começa o próximo circuito.
+    */
 
-        iniciarProximaRodada();
+    if (indiceParticipante >= TOTAL_PARTICIPANTES) {
 
+        indiceParticipante = 0;
+        circuitoAtual++;
+    }
+
+    /*
+       Depois do terceiro circuito,
+       mostra o ranking final.
+    */
+
+    if (circuitoAtual > TOTAL_CIRCUITOS) {
+
+        mostrarRanking();
         return;
     }
 
-    // Após a terceira rodada, passa para a próxima dupla
-    if (indiceDupla < duplas.length - 1) {
-
-        indiceDupla++;
-
-        rodadaDaDupla = 1;
-
-        iniciarProximaRodada();
-
-        return;
-    }
-
-    // Todas as duplas terminaram
-    mostrarRanking();
+    iniciarProximaRodada();
 }
 
 /* ======================================================
@@ -509,7 +548,9 @@ function prepararAudio() {
         }
 
     } catch (erro) {
+
         console.log("Áudio não disponível.");
+
     }
 }
 
@@ -550,7 +591,9 @@ function tocarRelogio() {
         oscilador.stop(agora + 0.13);
 
     } catch (erro) {
+
         console.log("Erro no áudio.");
+
     }
 }
 
@@ -599,9 +642,12 @@ function tocarVitoria() {
 
             oscilador.start(inicio);
             oscilador.stop(inicio + 0.36);
+
         });
 
     } catch (erro) {
+
         console.log("Erro no áudio.");
+
     }
 }
