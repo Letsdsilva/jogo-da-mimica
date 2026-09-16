@@ -1,957 +1,447 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Mega Mímica</title>
 
-body {
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    min-height: 100vh;
+<body>
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    <!-- =========================
+         TELA INICIAL
+    ========================== -->
 
-    color: white;
+    <section id="telaInicial" class="tela ativa">
 
-    background:
-        radial-gradient(
-            circle at top,
-            #0c542d,
-            #031a10 45%,
-            #010805
-        );
+        <div class="logo">🎭</div>
 
-    overflow-x: hidden;
-}
+        <h1>MEGA MÍMICA</h1>
 
+        <p class="subtitulo">
+            O desafio começa agora!
+        </p>
 
-/* =========================
-   TELAS
-========================= */
+        <div class="card instrucoes">
 
-.tela {
+            <h2>📋 COMO JOGAR</h2>
 
-    display: none;
+            <p>👥 3 duplas participam.</p>
 
-    min-height: 100vh;
+            <p>⏱️ Cada rodada tem 60 segundos.</p>
 
-    width: 100%;
+            <p>🎭 Um jogador faz a mímica e o outro tenta adivinhar.</p>
 
-    padding: 35px 20px;
+            <p>🔄 Na segunda rodada os jogadores trocam de função.</p>
 
-    flex-direction: column;
+            <p>✅ Acertou = +1 ponto.</p>
 
-    align-items: center;
+            <p>❌ Errou = próxima palavra.</p>
 
-    justify-content: center;
+            <p>⏭️ Cada rodada possui 5 passes.</p>
 
-    gap: 20px;
-}
+            <p>🚫 Nenhuma palavra será repetida durante a partida.</p>
 
+        </div>
 
-.tela.ativa {
-    display: flex;
-}
 
+        <!-- DUPLA 1 -->
 
-/* =========================
-   LOGO
-========================= */
+        <div class="card cadastro">
 
-.logo {
+            <h2>🟢 DUPLA 1</h2>
 
-    font-size: 80px;
+            <input
+                type="text"
+                id="dupla1Nome"
+                placeholder="Nome da dupla"
+            >
 
-    filter:
-        drop-shadow(0 0 15px #00ff73)
-        drop-shadow(0 0 35px #00ff73);
+            <input
+                type="text"
+                id="dupla1Jogador1"
+                placeholder="Jogador 1"
+            >
 
-}
+            <input
+                type="text"
+                id="dupla1Jogador2"
+                placeholder="Jogador 2"
+            >
 
+        </div>
 
-.logo.pequeno {
-    font-size: 55px;
-}
 
+        <!-- DUPLA 2 -->
 
-h1 {
+        <div class="card cadastro">
 
-    font-size: clamp(38px, 7vw, 75px);
+            <h2>🟢 DUPLA 2</h2>
 
-    letter-spacing: 4px;
+            <input
+                type="text"
+                id="dupla2Nome"
+                placeholder="Nome da dupla"
+            >
 
-    text-align: center;
+            <input
+                type="text"
+                id="dupla2Jogador1"
+                placeholder="Jogador 1"
+            >
 
-    color: #ffffff;
+            <input
+                type="text"
+                id="dupla2Jogador2"
+                placeholder="Jogador 2"
+            >
 
-    text-shadow:
-        0 0 10px #00ff73,
-        0 0 30px #00ff73;
+        </div>
 
-}
 
+        <!-- DUPLA 3 -->
 
-.subtitulo {
+        <div class="card cadastro">
 
-    font-size: 22px;
+            <h2>🟢 DUPLA 3</h2>
 
-    color: #baffd5;
+            <input
+                type="text"
+                id="dupla3Nome"
+                placeholder="Nome da dupla"
+            >
 
-    text-align: center;
+            <input
+                type="text"
+                id="dupla3Jogador1"
+                placeholder="Jogador 1"
+            >
 
-}
+            <input
+                type="text"
+                id="dupla3Jogador2"
+                placeholder="Jogador 2"
+            >
 
+        </div>
 
-/* =========================
-   CARDS
-========================= */
 
-.card {
+        <button
+            class="btn principal"
+            onclick="iniciarJogo()"
+        >
+            🎬 COMEÇAR JOGO
+        </button>
 
-    width: min(700px, 95vw);
+    </section>
 
-    padding: 25px;
 
-    border:
-        2px solid #00ff73;
+    <!-- =========================
+         TELA DAS DUPLAS
+    ========================== -->
 
-    border-radius: 18px;
+    <section id="telaDuplas" class="tela">
 
-    background:
-        rgba(0, 30, 17, 0.85);
+        <div class="logo pequeno">🎭</div>
 
-    box-shadow:
-        0 0 15px rgba(0, 255, 115, 0.25),
-        inset 0 0 20px rgba(0, 255, 115, 0.05);
+        <h1>MEGA MÍMICA</h1>
 
-}
+        <h2>👥 DUPLAS PARTICIPANTES</h2>
 
+        <div id="listaDuplas"></div>
 
-.card h2 {
+        <button
+            class="btn principal"
+            onclick="iniciarProximaRodada()"
+        >
+            🚀 COMEÇAR RODADA 1
+        </button>
 
-    margin-bottom: 15px;
+    </section>
 
-    color: #00ff73;
 
-    text-align: center;
+    <!-- =========================
+         TELA DO JOGO
+    ========================== -->
 
-}
+    <section id="telaJogo" class="tela">
 
+        <div class="topoJogo">
 
-.instrucoes p {
+            <div class="infoJogo">
 
-    margin: 8px 0;
+                <span>🎭 DUPLA</span>
+                <strong id="nomeDuplaAtual">
+                    —
+                </strong>
 
-    font-size: 17px;
+            </div>
 
-    color: #e7fff0;
 
-}
+            <div class="infoJogo">
 
+                <span>🏆 PONTOS</span>
+                <strong id="pontuacaoAtual">
+                    0
+                </strong>
 
-/* =========================
-   INPUTS
-========================= */
+            </div>
 
-.cadastro {
 
-    display: flex;
+            <div class="infoJogo">
 
-    flex-direction: column;
+                <span>🔄 RODADA</span>
+                <strong id="numeroRodada">
+                    1 / 2
+                </strong>
 
-    gap: 12px;
-}
+            </div>
 
+        </div>
 
-.cadastro h2 {
-    margin-bottom: 5px;
-}
 
+        <!-- CRONÔMETRO -->
 
-input {
+        <div
+            id="tempoBox"
+            class="tempo-box"
+        >
 
-    width: 100%;
+            <span>⏱️</span>
 
-    padding: 15px;
+            <strong id="tempo">
+                60
+            </strong>
 
-    border: 2px solid #087d40;
+            <small>
+                SEGUNDOS
+            </small>
 
-    border-radius: 10px;
+        </div>
 
-    outline: none;
 
-    background: #02140b;
+        <!-- FUNÇÕES -->
 
-    color: white;
+        <div class="funcoes">
 
-    font-size: 17px;
+            <div class="funcao">
 
-    transition: 0.2s;
-}
+                <span>🎭 FAZ A MÍMICA</span>
 
+                <strong id="quemFaz">
+                    —
+                </strong>
 
-input:focus {
+            </div>
 
-    border-color: #00ff73;
 
-    box-shadow:
-        0 0 15px rgba(0,255,115,0.5);
-}
+            <div class="funcao">
 
+                <span>👀 ADIVINHA</span>
 
-input::placeholder {
-    color: #8aa998;
-}
+                <strong id="quemAdivinha">
+                    —
+                </strong>
 
+            </div>
 
-/* =========================
-   BOTÕES
-========================= */
+        </div>
 
-.btn {
 
-    border: none;
+        <!-- PALAVRA -->
 
-    border-radius: 14px;
+        <div class="palavra-container">
 
-    padding: 17px 30px;
+            <p>
+                FAÇA A MÍMICA DE:
+            </p>
 
-    font-size: 18px;
+            <div
+                id="palavra"
+                class="palavra"
+            >
+                PREPARE-SE!
+            </div>
 
-    font-weight: bold;
+        </div>
 
-    cursor: pointer;
 
-    transition:
-        transform 0.15s,
-        box-shadow 0.15s,
-        opacity 0.15s;
+        <!-- BOTÕES -->
 
-}
+        <div class="botoesJogo">
 
+            <button
+                id="btnPassar"
+                class="btn btn-passar"
+                onclick="passar()"
+            >
+                ⏭️ PASSAR (5)
+            </button>
 
-.btn:hover {
 
-    transform: scale(1.04);
+            <button
+                class="btn btn-acertou"
+                onclick="acertou()"
+            >
+                ✅ ACERTOU
+            </button>
 
-}
 
+            <button
+                class="btn btn-erro"
+                onclick="errou()"
+            >
+                ❌ ERRO
+            </button>
 
-.btn:active {
+        </div>
 
-    transform: scale(0.97);
 
-}
+        <button
+            id="btnPausar"
+            class="btn btn-pausar"
+            onclick="pausarJogo()"
+        >
+            ⏸️ PAUSAR
+        </button>
 
+    </section>
 
-.principal {
 
-    margin-top: 15px;
+    <!-- =========================
+         RESULTADO DA RODADA
+    ========================== -->
 
-    background:
-        linear-gradient(
-            135deg,
-            #00ff73,
-            #00c95a
-        );
+    <section id="telaResultado" class="tela">
 
-    color: #001a0b;
+        <div class="resultado">
 
-    box-shadow:
-        0 0 15px #00ff73,
-        0 0 35px rgba(0,255,115,0.5);
+            <div class="iconeResultado">
+                🎉
+            </div>
 
-}
+            <h1>
+                RODADA ENCERRADA!
+            </h1>
 
+            <h2 id="resultadoDupla">
+                —
+            </h2>
 
-.principal:hover {
+            <div class="pontuacaoResultado">
 
-    box-shadow:
-        0 0 25px #00ff73,
-        0 0 50px rgba(0,255,115,0.7);
+                <span>
+                    PONTOS NA RODADA
+                </span>
 
-}
+                <strong id="pontosRodadaResultado">
+                    0
+                </strong>
 
+            </div>
 
-/* =========================
-   DUPLAS
-========================= */
 
-#listaDuplas {
+            <div class="totalResultado">
 
-    width: min(850px, 95vw);
+                <span>
+                    TOTAL DA DUPLA
+                </span>
 
-    display: grid;
+                <strong id="totalDuplaResultado">
+                    0
+                </strong>
 
-    grid-template-columns:
-        repeat(3, 1fr);
+            </div>
 
-    gap: 18px;
 
-}
+            <button
+                class="btn principal"
+                onclick="continuarJogo()"
+            >
+                ➡️ CONTINUAR
+            </button>
 
+        </div>
 
-.dupla-card {
+    </section>
 
-    padding: 25px;
 
-    border:
-        2px solid #00ff73;
+    <!-- =========================
+         RANKING
+    ========================== -->
 
-    border-radius: 18px;
+    <section id="telaRanking" class="tela">
 
-    background:
-        rgba(0,30,17,0.8);
+        <div class="logo pequeno">
+            🏆
+        </div>
 
-    text-align: center;
+        <h1>
+            RANKING FINAL
+        </h1>
 
-    box-shadow:
-        0 0 15px rgba(0,255,115,0.2);
+        <div id="rankingFinal"></div>
 
-}
+        <button
+            class="btn principal"
+            onclick="mostrarCampeao()"
+        >
+            🏆 VER CAMPEÃO
+        </button>
 
+    </section>
 
-.dupla-card h3 {
 
-    color: #00ff73;
+    <!-- =========================
+         CAMPEÃO
+    ========================== -->
 
-    font-size: 23px;
+    <section id="telaCampeao" class="tela">
 
-    margin-bottom: 15px;
+        <div class="confetes">
+            🎉 🎊 🎉 🎊 🎉
+        </div>
 
-}
+        <div class="trofeu">
+            🏆
+        </div>
 
+        <h1>
+            CAMPEÃO!
+        </h1>
 
-.dupla-card p {
+        <div
+            id="nomeCampeao"
+            class="campeaoNome"
+        >
+            —
+        </div>
 
-    margin: 8px 0;
+        <div
+            id="pontuacaoCampeao"
+            class="campeaoPontos"
+        >
+            0 PONTOS
+        </div>
 
-    color: #dffff0;
+        <div class="confetes">
+            🎊 🎉 🎊 🎉 🎊
+        </div>
 
-}
+        <button
+            class="btn principal"
+            onclick="location.reload()"
+        >
+            🔄 NOVO JOGO
+        </button>
 
+    </section>
 
-/* =========================
-   TOPO DO JOGO
-========================= */
 
-.topoJogo {
+    <script src="script.js"></script>
 
-    width: min(1100px, 96vw);
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr 1fr;
-
-    gap: 15px;
-
-}
-
-
-.infoJogo {
-
-    padding: 15px;
-
-    border:
-        2px solid #087d40;
-
-    border-radius: 15px;
-
-    background:
-        rgba(0,25,14,0.8);
-
-    text-align: center;
-}
-
-
-.infoJogo span {
-
-    display: block;
-
-    color: #9ac9aa;
-
-    font-size: 13px;
-
-    margin-bottom: 6px;
-
-}
-
-
-.infoJogo strong {
-
-    color: #00ff73;
-
-    font-size: 24px;
-
-}
-
-
-/* =========================
-   TEMPO
-========================= */
-
-.tempo-box {
-
-    width: 230px;
-
-    height: 170px;
-
-    margin: 10px 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    border:
-        4px solid #00ff73;
-
-    border-radius: 25px;
-
-    background:
-        rgba(0,25,14,0.9);
-
-    box-shadow:
-        0 0 20px rgba(0,255,115,0.4);
-
-}
-
-
-.tempo-box span {
-
-    font-size: 25px;
-
-}
-
-
-.tempo-box strong {
-
-    font-size: 75px;
-
-    line-height: 1;
-
-    color: #00ff73;
-
-    text-shadow:
-        0 0 15px #00ff73;
-
-}
-
-
-.tempo-box small {
-
-    color: #9ac9aa;
-
-    margin-top: 8px;
-
-}
-
-
-.tempo-box.urgente {
-
-    border-color: #ff355d;
-
-    box-shadow:
-        0 0 25px rgba(255,53,93,0.8);
-
-    animation:
-        piscar 0.7s infinite;
-
-}
-
-
-.tempo-box.urgente strong {
-
-    color: #ff355d;
-
-    text-shadow:
-        0 0 15px #ff355d;
-
-}
-
-
-@keyframes piscar {
-
-    0%, 100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.05);
-    }
-
-}
-
-
-/* =========================
-   FUNÇÕES
-========================= */
-
-.funcoes {
-
-    width: min(850px, 95vw);
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 20px;
-
-}
-
-
-.funcao {
-
-    padding: 20px;
-
-    border-radius: 16px;
-
-    background:
-        rgba(0,35,20,0.8);
-
-    border:
-        2px solid #087d40;
-
-    text-align: center;
-
-}
-
-
-.funcao span {
-
-    display: block;
-
-    color: #9ac9aa;
-
-    margin-bottom: 8px;
-
-}
-
-
-.funcao strong {
-
-    font-size: 25px;
-
-    color: white;
-
-}
-
-
-/* =========================
-   PALAVRA
-========================= */
-
-.palavra-container {
-
-    width: min(900px, 95vw);
-
-    padding: 35px;
-
-    border:
-        3px solid #00ff73;
-
-    border-radius: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(0,55,30,0.95),
-            rgba(0,20,11,0.95)
-        );
-
-    text-align: center;
-
-    box-shadow:
-        0 0 25px rgba(0,255,115,0.3);
-
-}
-
-
-.palavra-container p {
-
-    color: #9ac9aa;
-
-    font-size: 16px;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 15px;
-
-}
-
-
-.palavra {
-
-    font-size: clamp(42px, 8vw, 85px);
-
-    font-weight: 900;
-
-    color: #ffffff;
-
-    text-transform: uppercase;
-
-    text-shadow:
-        0 0 10px #00ff73,
-        0 0 30px #00ff73;
-
-}
-
-
-/* =========================
-   BOTÕES DO JOGO
-========================= */
-
-.botoesJogo {
-
-    width: min(900px, 95vw);
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr 1fr;
-
-    gap: 15px;
-
-}
-
-
-.btn-acertou {
-
-    background: #00ff73;
-
-    color: #001a0b;
-
-    box-shadow:
-        0 0 15px rgba(0,255,115,0.5);
-
-}
-
-
-.btn-erro {
-
-    background: #ff355d;
-
-    color: white;
-
-    box-shadow:
-        0 0 15px rgba(255,53,93,0.4);
-
-}
-
-
-.btn-passar {
-
-    background: #ffd43b;
-
-    color: #241d00;
-
-    box-shadow:
-        0 0 15px rgba(255,212,59,0.35);
-
-}
-
-
-.btn-passar:disabled {
-
-    opacity: 0.35;
-
-    cursor: not-allowed;
-
-    transform: none;
-
-}
-
-
-.btn-pausar {
-
-    background: white;
-
-    color: #031a10;
-
-}
-
-
-.btn-pausar:hover {
-
-    box-shadow:
-        0 0 15px white;
-
-}
-
-
-/* =========================
-   RESULTADO
-========================= */
-
-.resultado {
-
-    width: min(650px, 95vw);
-
-    padding: 40px;
-
-    border:
-        3px solid #00ff73;
-
-    border-radius: 25px;
-
-    background:
-        rgba(0,30,17,0.9);
-
-    text-align: center;
-
-    box-shadow:
-        0 0 30px rgba(0,255,115,0.3);
-
-}
-
-
-.iconeResultado {
-
-    font-size: 70px;
-
-}
-
-
-.resultado h2 {
-
-    margin: 20px 0;
-
-    color: #00ff73;
-
-    font-size: 35px;
-
-}
-
-
-.pontuacaoResultado,
-.totalResultado {
-
-    margin: 15px auto;
-
-    padding: 18px;
-
-    border-radius: 15px;
-
-    background: #031a10;
-
-}
-
-
-.pontuacaoResultado span,
-.totalResultado span {
-
-    display: block;
-
-    color: #9ac9aa;
-
-}
-
-
-.pontuacaoResultado strong,
-.totalResultado strong {
-
-    display: block;
-
-    margin-top: 5px;
-
-    font-size: 45px;
-
-    color: #00ff73;
-
-}
-
-
-/* =========================
-   RANKING
-========================= */
-
-#rankingFinal {
-
-    width: min(750px, 95vw);
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-
-}
-
-
-.ranking-item {
-
-    display: grid;
-
-    grid-template-columns:
-        70px 1fr 100px;
-
-    align-items: center;
-
-    padding: 18px 22px;
-
-    border-radius: 15px;
-
-    border:
-        2px solid #087d40;
-
-    background:
-        rgba(0,30,17,0.9);
-
-}
-
-
-.ranking-posicao {
-
-    font-size: 32px;
-
-}
-
-
-.ranking-nome {
-
-    font-size: 23px;
-
-    font-weight: bold;
-
-}
-
-
-.ranking-pontos {
-
-    text-align: right;
-
-    font-size: 25px;
-
-    color: #00ff73;
-
-    font-weight: bold;
-
-}
-
-
-/* =========================
-   CAMPEÃO
-========================= */
-
-.trofeu {
-
-    font-size: 130px;
-
-    filter:
-        drop-shadow(0 0 25px #00ff73);
-
-    animation:
-        trofeuAnim 1.5s infinite alternate;
-
-}
-
-
-@keyframes trofeuAnim {
-
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.1) rotate(3deg);
-    }
-
-}
-
-
-.campeaoNome {
-
-    font-size: clamp(40px, 8vw, 75px);
-
-    font-weight: 900;
-
-    color: #00ff73;
-
-    text-align: center;
-
-    text-shadow:
-        0 0 15px #00ff73,
-        0 0 40px #00ff73;
-
-}
-
-
-.campeaoPontos {
-
-    font-size: 30px;
-
-    color: white;
-
-}
-
-
-.confetes {
-
-    font-size: 35px;
-
-    letter-spacing: 15px;
-
-}
-
-
-/* =========================
-   RESPONSIVO
-========================= */
-
-@media (max-width: 750px) {
-
-    #listaDuplas {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .topoJogo {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .funcoes {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .botoesJogo {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .palavra-container {
-
-        padding: 25px 15px;
-
-    }
-
-
-    .ranking-item {
-
-        grid-template-columns:
-            55px 1fr 80px;
-
-    }
-
-}
+</body>
+</html>
