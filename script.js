@@ -11,6 +11,8 @@ const TEMPO_RODADA = 60;
 
 const PASSES_INICIAIS = 5;
 
+const TOTAL_RODADAS = 3;
+
 
 // ======================================================
 // 300 PALAVRAS ÚNICAS DE MÍMICA
