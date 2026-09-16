@@ -1,535 +1,1082 @@
+// ======================================================
+// MEGA MÍMICA
+// ======================================================
 
-/* ======================================================
-   MEGA MÍMICA
-   3 CIRCUITOS • 6 PARTICIPANTES • 18 TURNOS
-====================================================== */
+
+// ======================================================
+// CONFIGURAÇÕES
+// ======================================================
 
 const TEMPO_RODADA = 60;
-const PASSES_INICIAIS = 5;
-const TOTAL_CIRCUITOS = 3;
-const TOTAL_PARTICIPANTES = 6;
 
-/* ======================================================
-   PALAVRAS
-====================================================== */
+const PASSES_INICIAIS = 5;
+
+
+// ======================================================
+// 300 PALAVRAS ÚNICAS DE MÍMICA
+// ======================================================
 
 const palavras = [
-"Cachorro","Gato","Leão","Tigre","Elefante","Macaco","Girafa","Zebra","Cavalo","Vaca",
-"Porco","Galinha","Galo","Pato","Coelho","Rato","Cobra","Sapo","Tartaruga","Peixe",
-"Tubarão","Golfinho","Baleia","Polvo","Caranguejo","Pinguim","Pavão","Papagaio","Águia","Coruja",
-"Morcego","Borboleta","Abelha","Formiga","Aranha","Mosquito","Canguru","Urso","Lobo","Raposa",
-"Rinoceronte","Hipopótamo","Crocodilo","Camelo","Gorila","Preguiça","Flamingo","Caracol","Esquilo","Veado",
 
-"Correr","Pular","Andar","Dançar","Dormir","Comer","Beber","Nadar","Chorar","Rir",
-"Gritar","Cantar","Assobiar","Bater palmas","Aplaudir","Acenar","Abraçar","Beijar","Espirrar","Tossir",
-"Bocejar","Pentear","Escovar os dentes","Tomar banho","Se maquiar","Barbear","Vestir","Tirar a roupa","Cozinhar","Lavar",
-"Varrer","Passar roupa","Digitar","Escrever","Ler","Desenhar","Fotografar","Filmar","Dirigir","Pedalar",
-"Escalar","Cavar","Empurrar","Puxar","Carregar","Levantar","Sentar","Deitar","Cair","Tropeçar",
-"Esconder","Procurar","Abrir","Fechar","Bater","Chutar","Arremessar","Apontar","Pensar","Fingir",
+    // 🐾 ANIMAIS — 50
 
-"Médico","Enfermeiro","Dentista","Professor","Policial","Bombeiro","Cozinheiro","Garçom","Cabeleireiro","Barbeiro",
-"Pintor","Pedreiro","Eletricista","Mecânico","Motorista","Piloto","Astronauta","Fotógrafo","Cantor","Ator",
-"Dançarino","Mágico","Palhaço","Veterinário","Jardineiro","Padeiro","Carteiro","Juiz","Repórter","Advogado",
+    "Cachorro",
+    "Gato",
+    "Leão",
+    "Tigre",
+    "Elefante",
+    "Macaco",
+    "Girafa",
+    "Zebra",
+    "Cavalo",
+    "Vaca",
+    "Porco",
+    "Galinha",
+    "Galo",
+    "Pato",
+    "Coelho",
+    "Rato",
+    "Cobra",
+    "Sapo",
+    "Tartaruga",
+    "Peixe",
+    "Tubarão",
+    "Golfinho",
+    "Baleia",
+    "Polvo",
+    "Caranguejo",
+    "Pinguim",
+    "Pavão",
+    "Papagaio",
+    "Águia",
+    "Coruja",
+    "Morcego",
+    "Borboleta",
+    "Abelha",
+    "Formiga",
+    "Aranha",
+    "Mosquito",
+    "Canguru",
+    "Urso",
+    "Lobo",
+    "Raposa",
+    "Rinoceronte",
+    "Hipopótamo",
+    "Crocodilo",
+    "Camelo",
+    "Gorila",
+    "Preguiça",
+    "Flamingo",
+    "Caracol",
+    "Esquilo",
+    "Veado",
 
-"Futebol","Basquete","Vôlei","Tênis","Natação","Boxe","Judô","Karatê","Balé","Ginástica",
-"Ciclismo","Corrida","Surfe","Skate","Patinação","Golfe","Beisebol","Handebol","Futsal","Tênis de mesa",
-"Arco e flecha","Esgrima","Remo","Hipismo","Rugby","Boliche","Pesca","Mergulho","Paraquedismo","Atletismo",
 
-"Pizza","Hambúrguer","Hot dog","Batata frita","Pipoca","Sorvete","Bolo","Brigadeiro","Chocolate","Pirulito",
-"Sanduíche","Macarrão","Lasanha","Arroz","Feijão","Sushi","Pastel","Coxinha","Pão de queijo","Taco",
-"Salada","Sopa","Churrasco","Milho","Banana","Maçã","Melancia","Morango","Abacaxi","Açaí",
+    // 🏃 AÇÕES — 60
 
-"Celular","Computador","Teclado","Mouse","Televisão","Controle remoto","Telefone","Câmera","Relógio","Óculos",
-"Guarda-chuva","Chave","Carteira","Mochila","Bolsa","Mala","Livro","Caderno","Lápis","Caneta",
-"Tesoura","Cola","Borracha","Régua","Garrafa","Copo","Prato","Colher","Garfo","Faca",
-"Panela","Vassoura","Rodo","Esponja","Ferro de passar","Travesseiro","Cama","Cadeira","Sofá","Espelho",
+    "Correr",
+    "Pular",
+    "Andar",
+    "Dançar",
+    "Dormir",
+    "Comer",
+    "Beber",
+    "Nadar",
+    "Chorar",
+    "Rir",
+    "Gritar",
+    "Cantar",
+    "Assobiar",
+    "Bater palmas",
+    "Aplaudir",
+    "Acenar",
+    "Abraçar",
+    "Beijar",
+    "Espirrar",
+    "Tossir",
+    "Bocejar",
+    "Pentear",
+    "Escovar os dentes",
+    "Tomar banho",
+    "Se maquiar",
+    "Barbear",
+    "Vestir",
+    "Tirar a roupa",
+    "Cozinhar",
+    "Lavar",
+    "Varrer",
+    "Passar roupa",
+    "Digitar",
+    "Escrever",
+    "Ler",
+    "Desenhar",
+    "Fotografar",
+    "Filmar",
+    "Dirigir",
+    "Pedalar",
+    "Escalar",
+    "Cavar",
+    "Empurrar",
+    "Puxar",
+    "Carregar",
+    "Levantar",
+    "Sentar",
+    "Deitar",
+    "Cair",
+    "Tropeçar",
+    "Esconder",
+    "Procurar",
+    "Abrir",
+    "Fechar",
+    "Bater",
+    "Chutar",
+    "Arremessar",
+    "Apontar",
+    "Pensar",
+    "Fingir",
 
-"Carro","Moto","Bicicleta","Ônibus","Trem","Metrô","Avião","Helicóptero","Navio","Barco",
-"Táxi","Ambulância","Escola","Hospital","Restaurante","Cinema","Academia","Praia","Parque","Supermercado",
 
-"Super-herói","Superman","Batman","Homem-Aranha","Hulk","Homem de Ferro","Mulher-Maravilha","Papai Noel","Bruxa","Fantasma",
-"Vampiro","Pirata","Rei","Rainha","Princesa","Príncipe","Detetive","Robô","Zumbi","Ninja",
+    // 👨‍⚕️ PROFISSÕES — 30
 
-"Bebê","Idoso","Modelo","Gigante","Estátua","Manequim","Boneca","Fantoche","Marionete","Monstro",
-"Alienígena","Vilão","Anjo","Palhaço de circo","Mestre-cuca","Surfista","Cowboy","Índio","Soldado","Astrólogo"
+    "Médico",
+    "Enfermeiro",
+    "Dentista",
+    "Professor",
+    "Policial",
+    "Bombeiro",
+    "Cozinheiro",
+    "Garçom",
+    "Cabeleireiro",
+    "Barbeiro",
+    "Pintor",
+    "Pedreiro",
+    "Eletricista",
+    "Mecânico",
+    "Motorista",
+    "Piloto",
+    "Astronauta",
+    "Fotógrafo",
+    "Cantor",
+    "Ator",
+    "Dançarino",
+    "Mágico",
+    "Palhaço",
+    "Veterinário",
+    "Jardineiro",
+    "Padeiro",
+    "Carteiro",
+    "Juiz",
+    "Repórter",
+    "Advogado",
+
+
+    // ⚽ ESPORTES — 30
+
+    "Futebol",
+    "Basquete",
+    "Vôlei",
+    "Tênis",
+    "Natação",
+    "Boxe",
+    "Judô",
+    "Karatê",
+    "Balé",
+    "Ginástica",
+    "Ciclismo",
+    "Corrida",
+    "Surfe",
+    "Skate",
+    "Patinação",
+    "Golfe",
+    "Beisebol",
+    "Handebol",
+    "Futsal",
+    "Tênis de mesa",
+    "Arco e flecha",
+    "Esgrima",
+    "Remo",
+    "Hipismo",
+    "Rugby",
+    "Boliche",
+    "Pesca",
+    "Mergulho",
+    "Paraquedismo",
+    "Atletismo",
+
+
+    // 🍕 COMIDAS — 30
+
+    "Pizza",
+    "Hambúrguer",
+    "Hot dog",
+    "Batata frita",
+    "Pipoca",
+    "Sorvete",
+    "Bolo",
+    "Brigadeiro",
+    "Chocolate",
+    "Pirulito",
+    "Sanduíche",
+    "Macarrão",
+    "Lasanha",
+    "Arroz",
+    "Feijão",
+    "Sushi",
+    "Pastel",
+    "Coxinha",
+    "Pão de queijo",
+    "Taco",
+    "Salada",
+    "Sopa",
+    "Churrasco",
+    "Milho",
+    "Banana",
+    "Maçã",
+    "Melancia",
+    "Morango",
+    "Abacaxi",
+    "Açaí",
+
+
+    // 🏠 OBJETOS — 40
+
+    "Celular",
+    "Computador",
+    "Teclado",
+    "Mouse",
+    "Televisão",
+    "Controle remoto",
+    "Telefone",
+    "Câmera",
+    "Relógio",
+    "Óculos",
+    "Guarda-chuva",
+    "Chave",
+    "Carteira",
+    "Mochila",
+    "Bolsa",
+    "Mala",
+    "Livro",
+    "Caderno",
+    "Lápis",
+    "Caneta",
+    "Tesoura",
+    "Cola",
+    "Borracha",
+    "Régua",
+    "Garrafa",
+    "Copo",
+    "Prato",
+    "Colher",
+    "Garfo",
+    "Faca",
+    "Panela",
+    "Vassoura",
+    "Rodo",
+    "Esponja",
+    "Ferro de passar",
+    "Travesseiro",
+    "Cama",
+    "Cadeira",
+    "Sofá",
+    "Espelho",
+
+
+    // 🚗 TRANSPORTES E LUGARES — 20
+
+    "Carro",
+    "Moto",
+    "Bicicleta",
+    "Ônibus",
+    "Trem",
+    "Metrô",
+    "Avião",
+    "Helicóptero",
+    "Navio",
+    "Barco",
+    "Táxi",
+    "Ambulância",
+    "Escola",
+    "Hospital",
+    "Restaurante",
+    "Cinema",
+    "Academia",
+    "Praia",
+    "Parque",
+    "Supermercado",
+
+
+    // 🦸 PERSONAGENS — 20
+
+    "Super-herói",
+    "Superman",
+    "Batman",
+    "Homem-Aranha",
+    "Hulk",
+    "Homem de Ferro",
+    "Mulher-Maravilha",
+    "Papai Noel",
+    "Bruxa",
+    "Fantasma",
+    "Vampiro",
+    "Pirata",
+    "Rei",
+    "Rainha",
+    "Princesa",
+    "Príncipe",
+    "Detetive",
+    "Robô",
+    "Zumbi",
+    "Ninja",
+
+
+    // 😂 EXTRAS — 20
+
+    "Bebê",
+    "Idoso",
+    "Modelo",
+    "Gigante",
+    "Estátua",
+    "Manequim",
+    "Boneca",
+    "Fantoche",
+    "Marionete",
+    "Monstro",
+    "Alienígena",
+    "Vilão",
+    "Anjo",
+    "Palhaço de circo",
+    "Mestre-cuca",
+    "Surfista",
+    "Cowboy",
+    "Índio",
+    "Soldado",
+    "Astrólogo"
+
 ];
 
-/* ======================================================
-   ESTADO DO JOGO
-====================================================== */
+
+// ======================================================
+// ESTADO DO JOGO
+// ======================================================
 
 let duplas = [];
 
-let circuitoAtual = 1;
-let indiceParticipante = 0;
+let indiceDupla = 0;
+
+let rodadaDaDupla = 1;
 
 let pontosRodada = 0;
+
 let passesRestantes = PASSES_INICIAIS;
+
 let tempoRestante = TEMPO_RODADA;
 
 let intervalo = null;
+
 let jogoPausado = false;
-let rodadaFinalizada = false;
 
 let palavraAtual = "";
+
 let palavrasDisponiveis = [];
+
 let audioContext = null;
 
-/* ======================================================
-   INICIAR JOGO
-====================================================== */
+
+// ======================================================
+// INICIAR JOGO
+// ======================================================
 
 function iniciarJogo() {
 
     duplas = [
-        criarDupla("dupla1Nome", "dupla1Jogador1", "dupla1Jogador2", "Dupla 1"),
-        criarDupla("dupla2Nome", "dupla2Jogador1", "dupla2Jogador2", "Dupla 2"),
-        criarDupla("dupla3Nome", "dupla3Jogador1", "dupla3Jogador2", "Dupla 3")
+
+        criarDupla(
+            "dupla1Nome",
+            "dupla1Jogador1",
+            "dupla1Jogador2",
+            "Dupla 1"
+        ),
+
+        criarDupla(
+            "dupla2Nome",
+            "dupla2Jogador1",
+            "dupla2Jogador2",
+            "Dupla 2"
+        ),
+
+        criarDupla(
+            "dupla3Nome",
+            "dupla3Jogador1",
+            "dupla3Jogador2",
+            "Dupla 3"
+        )
+
     ];
 
-    circuitoAtual = 1;
-    indiceParticipante = 0;
+
+    indiceDupla = 0;
+
+    rodadaDaDupla = 1;
+
     pontosRodada = 0;
+
+
+    // Cria uma cópia das 300 palavras.
+    // Essa lista NÃO será reiniciada durante o jogo.
+
     palavrasDisponiveis = [...palavras];
 
+
     mostrarListaDuplas();
+
     mostrarTela("telaDuplas");
+
 }
 
-/* ======================================================
-   CRIAR DUPLA
-====================================================== */
 
-function criarDupla(idNome, idJogador1, idJogador2, nomePadrao) {
+// ======================================================
+// CRIAR DUPLA
+// ======================================================
+
+function criarDupla(
+    idNome,
+    idJogador1,
+    idJogador2,
+    nomePadrao
+) {
 
     const nome =
-        document.getElementById(idNome).value.trim() || nomePadrao;
+        document.getElementById(idNome).value.trim()
+        || nomePadrao;
 
     const jogador1 =
-        document.getElementById(idJogador1).value.trim() || "Jogador 1";
+        document.getElementById(idJogador1).value.trim()
+        || "Jogador 1";
 
     const jogador2 =
-        document.getElementById(idJogador2).value.trim() || "Jogador 2";
+        document.getElementById(idJogador2).value.trim()
+        || "Jogador 2";
+
 
     return {
-        nome,
-        jogador1,
-        jogador2,
+
+        nome: nome,
+
+        jogador1: jogador1,
+
+        jogador2: jogador2,
+
         pontos: 0
+
     };
+
 }
 
-/* ======================================================
-   MOSTRAR DUPLAS
-====================================================== */
+
+// ======================================================
+// MOSTRAR DUPLAS
+// ======================================================
 
 function mostrarListaDuplas() {
 
-    const lista = document.getElementById("listaDuplas");
+    const lista =
+        document.getElementById("listaDuplas");
+
+
     lista.innerHTML = "";
+
 
     duplas.forEach((dupla, index) => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
+
         card.className = "dupla-card";
 
+
         card.innerHTML = `
-            <h3>👥 ${index + 1}ª DUPLA</h3>
-            <p><strong>${dupla.nome}</strong></p>
-            <p>🎭 ${dupla.jogador1}</p>
-            <p>🎭 ${dupla.jogador2}</p>
+
+            <h3>
+                👥 ${index + 1}ª DUPLA
+            </h3>
+
+            <p>
+                <strong>${dupla.nome}</strong>
+            </p>
+
+            <p>
+                🎭 ${dupla.jogador1}
+            </p>
+
+            <p>
+                🎭 ${dupla.jogador2}
+            </p>
+
         `;
 
+
         lista.appendChild(card);
+
     });
+
 }
 
-/* ======================================================
-   IDENTIFICAR PARTICIPANTE ATUAL
-====================================================== */
 
-function obterParticipanteAtual() {
-
-    const indiceDupla = Math.floor(indiceParticipante / 2);
-    const jogadorNumero = indiceParticipante % 2;
-
-    const dupla = duplas[indiceDupla];
-
-    if (jogadorNumero === 0) {
-
-        return {
-            dupla,
-            indiceDupla,
-            quemFaz: dupla.jogador1,
-            quemAdivinha: dupla.jogador2
-        };
-
-    } else {
-
-        return {
-            dupla,
-            indiceDupla,
-            quemFaz: dupla.jogador2,
-            quemAdivinha: dupla.jogador1
-        };
-    }
-}
-
-/* ======================================================
-   INICIAR TURNO
-====================================================== */
+// ======================================================
+// INICIAR PRÓXIMA RODADA
+// ======================================================
 
 function iniciarProximaRodada() {
 
     clearInterval(intervalo);
 
+
+    const dupla =
+        duplas[indiceDupla];
+
+
     pontosRodada = 0;
+
     passesRestantes = PASSES_INICIAIS;
+
     tempoRestante = TEMPO_RODADA;
+
     jogoPausado = false;
-    rodadaFinalizada = false;
 
-    const tempoBox = document.getElementById("tempoBox");
-
-    if (tempoBox) {
-        tempoBox.classList.remove("urgente");
-    }
 
     atualizarInformacoes();
+
     atualizarTempo();
+
     atualizarBotaoPassar();
 
-    document.getElementById("btnPausar").textContent = "⏸️ PAUSAR";
+
+    document.getElementById("btnPausar").textContent =
+        "⏸️ PAUSAR";
+
 
     prepararAudio();
+
+
     mostrarNovaPalavra();
+
+
     mostrarTela("telaJogo");
+
+
     iniciarCronometro();
+
 }
 
-/* ======================================================
-   ATUALIZAR INFORMAÇÕES
-====================================================== */
+
+// ======================================================
+// ATUALIZAR INFORMAÇÕES
+// ======================================================
 
 function atualizarInformacoes() {
 
-    const participante = obterParticipanteAtual();
-    const dupla = participante.dupla;
+    const dupla =
+        duplas[indiceDupla];
+
 
     document.getElementById("nomeDuplaAtual")
-        .textContent = dupla.nome;
+        .textContent =
+        dupla.nome;
+
 
     document.getElementById("pontuacaoAtual")
-        .textContent = dupla.pontos + pontosRodada;
+        .textContent =
+        dupla.pontos;
+
 
     document.getElementById("numeroRodada")
         .textContent =
-        `Circuito ${circuitoAtual}/${TOTAL_CIRCUITOS} • Participante ${indiceParticipante + 1}/${TOTAL_PARTICIPANTES}`;
+        `${rodadaDaDupla} / 2`;
 
-    document.getElementById("quemFaz")
-        .textContent = participante.quemFaz;
 
-    document.getElementById("quemAdivinha")
-        .textContent = participante.quemAdivinha;
+    if (rodadaDaDupla === 1) {
+
+        document.getElementById("quemFaz")
+            .textContent =
+            dupla.jogador1;
+
+
+        document.getElementById("quemAdivinha")
+            .textContent =
+            dupla.jogador2;
+
+    } else {
+
+        document.getElementById("quemFaz")
+            .textContent =
+            dupla.jogador2;
+
+
+        document.getElementById("quemAdivinha")
+            .textContent =
+            dupla.jogador1;
+
+    }
+
 }
 
-/* ======================================================
-   NOVA PALAVRA
-====================================================== */
+
+// ======================================================
+// PEGAR NOVA PALAVRA
+// ======================================================
 
 function mostrarNovaPalavra() {
 
     if (palavrasDisponiveis.length === 0) {
 
-        document.getElementById("palavra").textContent = "SEM PALAVRAS";
+        document.getElementById("palavra")
+            .textContent =
+            "SEM PALAVRAS";
+
         return;
+
     }
 
-    const indice = Math.floor(
-        Math.random() * palavrasDisponiveis.length
+
+    const indice =
+        Math.floor(
+            Math.random() *
+            palavrasDisponiveis.length
+        );
+
+
+    palavraAtual =
+        palavrasDisponiveis[indice];
+
+
+    // Remove definitivamente da lista.
+    // Portanto nunca poderá aparecer novamente.
+
+    palavrasDisponiveis.splice(
+        indice,
+        1
     );
 
-    palavraAtual = palavrasDisponiveis[indice];
-
-    palavrasDisponiveis.splice(indice, 1);
 
     document.getElementById("palavra")
-        .textContent = palavraAtual.toUpperCase();
+        .textContent =
+        palavraAtual.toUpperCase();
+
 }
 
-/* ======================================================
-   CRONÔMETRO
-====================================================== */
+
+// ======================================================
+// CRONÔMETRO
+// ======================================================
 
 function iniciarCronometro() {
 
     clearInterval(intervalo);
 
-    intervalo = setInterval(() => {
 
-        if (jogoPausado || rodadaFinalizada) return;
+    intervalo =
+        setInterval(() => {
 
-        tempoRestante--;
+            if (jogoPausado) {
+                return;
+            }
 
-        atualizarTempo();
 
-        if (tempoRestante <= 10 && tempoRestante > 0) {
+            tempoRestante--;
 
-            document.getElementById("tempoBox")
-                .classList.add("urgente");
 
-            tocarRelogio();
-        }
+            atualizarTempo();
 
-        if (tempoRestante <= 0) {
 
-            clearInterval(intervalo);
-            finalizarRodada();
-        }
+            // Últimos 10 segundos
 
-    }, 1000);
+            if (
+                tempoRestante <= 10 &&
+                tempoRestante > 0
+            ) {
+
+                document
+                    .getElementById("tempoBox")
+                    .classList.add("urgente");
+
+
+                tocarRelogio();
+
+            }
+
+
+            if (tempoRestante <= 0) {
+
+                clearInterval(intervalo);
+
+                finalizarRodada();
+
+            }
+
+        }, 1000);
+
 }
 
-/* ======================================================
-   ATUALIZAR TEMPO
-====================================================== */
+
+// ======================================================
+// ATUALIZAR TEMPO
+// ======================================================
 
 function atualizarTempo() {
 
     document.getElementById("tempo")
-        .textContent = tempoRestante;
+        .textContent =
+        tempoRestante;
+
 }
 
-/* ======================================================
-   ACERTOU
-====================================================== */
+
+// ======================================================
+// ACERTOU
+// ======================================================
 
 function acertou() {
 
-    if (jogoPausado || rodadaFinalizada) return;
-
-    pontosRodada++;
-
-    atualizarInformacoes();
-    mostrarNovaPalavra();
-}
-
-/* ======================================================
-   ERRO
-====================================================== */
-
-function errou() {
-
-    if (jogoPausado || rodadaFinalizada) return;
-
-    mostrarNovaPalavra();
-}
-
-/* ======================================================
-   PASSAR
-====================================================== */
-
-function passar() {
-
-    if (jogoPausado || rodadaFinalizada) return;
-
-    if (passesRestantes <= 0) return;
-
-    passesRestantes--;
-
-    atualizarBotaoPassar();
-    mostrarNovaPalavra();
-}
-
-/* ======================================================
-   BOTÃO PASSAR
-====================================================== */
-
-function atualizarBotaoPassar() {
-
-    const botao = document.getElementById("btnPassar");
-
-    botao.textContent = `⏭️ PASSAR (${passesRestantes})`;
-    botao.disabled = passesRestantes <= 0;
-}
-
-/* ======================================================
-   PAUSAR
-====================================================== */
-
-function pausarJogo() {
-
-    if (rodadaFinalizada) return;
-
-    jogoPausado = !jogoPausado;
-
-    const botao = document.getElementById("btnPausar");
-
     if (jogoPausado) {
-
-        botao.textContent = "▶️ CONTINUAR";
-
-    } else {
-
-        botao.textContent = "⏸️ PAUSAR";
-        prepararAudio();
-    }
-}
-
-/* ======================================================
-   FINALIZAR TURNO
-====================================================== */
-
-function finalizarRodada() {
-
-    if (rodadaFinalizada) return;
-
-    rodadaFinalizada = true;
-
-    clearInterval(intervalo);
-
-    const participante = obterParticipanteAtual();
-    const dupla = participante.dupla;
-
-    dupla.pontos += pontosRodada;
-
-    document.getElementById("tempoBox")
-        .classList.remove("urgente");
-
-    document.getElementById("resultadoDupla")
-        .textContent = dupla.nome;
-
-    document.getElementById("pontosRodadaResultado")
-        .textContent = pontosRodada;
-
-    document.getElementById("totalDuplaResultado")
-        .textContent = dupla.pontos;
-
-    tocarVitoria();
-
-    mostrarTela("telaResultado");
-}
-
-/* ======================================================
-   CONTINUAR JOGO
-====================================================== */
-
-function continuarJogo() {
-
-    indiceParticipante++;
-
-    /*
-       Quando os 6 participantes terminarem,
-       começa o próximo circuito.
-    */
-
-    if (indiceParticipante >= TOTAL_PARTICIPANTES) {
-
-        indiceParticipante = 0;
-        circuitoAtual++;
-    }
-
-    /*
-       Depois do terceiro circuito,
-       mostra o ranking final.
-    */
-
-    if (circuitoAtual > TOTAL_CIRCUITOS) {
-
-        mostrarRanking();
         return;
     }
 
-    iniciarProximaRodada();
+
+    pontosRodada++;
+
+
+    document.getElementById("pontuacaoAtual")
+        .textContent =
+        pontosRodada;
+
+
+    mostrarNovaPalavra();
+
 }
 
-/* ======================================================
-   RANKING FINAL
-====================================================== */
+
+// ======================================================
+// ERRO
+// ======================================================
+
+function errou() {
+
+    if (jogoPausado) {
+        return;
+    }
+
+
+    mostrarNovaPalavra();
+
+}
+
+
+// ======================================================
+// PASSAR
+// ======================================================
+
+function passar() {
+
+    if (jogoPausado) {
+        return;
+    }
+
+
+    if (passesRestantes <= 0) {
+        return;
+    }
+
+
+    passesRestantes--;
+
+
+    atualizarBotaoPassar();
+
+
+    mostrarNovaPalavra();
+
+}
+
+
+// ======================================================
+// ATUALIZAR BOTÃO PASSAR
+// ======================================================
+
+function atualizarBotaoPassar() {
+
+    const botao =
+        document.getElementById("btnPassar");
+
+
+    botao.textContent =
+        `⏭️ PASSAR (${passesRestantes})`;
+
+
+    botao.disabled =
+        passesRestantes <= 0;
+
+}
+
+
+// ======================================================
+// PAUSAR
+// ======================================================
+
+function pausarJogo() {
+
+    jogoPausado =
+        !jogoPausado;
+
+
+    const botao =
+        document.getElementById("btnPausar");
+
+
+    if (jogoPausado) {
+
+        botao.textContent =
+            "▶️ CONTINUAR";
+
+    } else {
+
+        botao.textContent =
+            "⏸️ PAUSAR";
+
+        prepararAudio();
+
+    }
+
+}
+
+
+// ======================================================
+// FINALIZAR RODADA
+// ======================================================
+
+function finalizarRodada() {
+
+    clearInterval(intervalo);
+
+
+    const dupla =
+        duplas[indiceDupla];
+
+
+    dupla.pontos += pontosRodada;
+
+
+    document
+        .getElementById("tempoBox")
+        .classList.remove("urgente");
+
+
+    document.getElementById("resultadoDupla")
+        .textContent =
+        dupla.nome;
+
+
+    document
+        .getElementById("pontosRodadaResultado")
+        .textContent =
+        pontosRodada;
+
+
+    document
+        .getElementById("totalDuplaResultado")
+        .textContent =
+        dupla.pontos;
+
+
+    tocarVitoria();
+
+
+    mostrarTela("telaResultado");
+
+}
+
+
+// ======================================================
+// CONTINUAR
+// ======================================================
+
+function continuarJogo() {
+
+    // Se terminou a rodada 1,
+    // vai para a rodada 2 da mesma dupla.
+
+    if (rodadaDaDupla === 1) {
+
+        rodadaDaDupla = 2;
+
+        iniciarProximaRodada();
+
+        return;
+
+    }
+
+
+    // Se terminou as duas rodadas,
+    // verifica se existem outras duplas.
+
+    if (
+        indiceDupla <
+        duplas.length - 1
+    ) {
+
+        indiceDupla++;
+
+        rodadaDaDupla = 1;
+
+        iniciarProximaRodada();
+
+        return;
+
+    }
+
+
+    // Todas as duplas terminaram.
+
+    mostrarRanking();
+
+}
+
+
+// ======================================================
+// RANKING FINAL
+// ======================================================
 
 function mostrarRanking() {
 
     clearInterval(intervalo);
 
-    const ranking = [...duplas].sort(
-        (a, b) => b.pontos - a.pontos
-    );
 
-    const container = document.getElementById("rankingFinal");
+    const ranking =
+        [...duplas].sort(
+            (a, b) =>
+                b.pontos - a.pontos
+        );
+
+
+    const container =
+        document.getElementById("rankingFinal");
+
 
     container.innerHTML = "";
 
-    ranking.forEach((dupla, index) => {
 
-        let medalha = "";
+    ranking.forEach(
+        (dupla, index) => {
 
-        if (index === 0) medalha = "🥇";
-        else if (index === 1) medalha = "🥈";
-        else if (index === 2) medalha = "🥉";
+            let medalha = "";
 
-        const item = document.createElement("div");
 
-        item.className = "ranking-item";
+            if (index === 0) {
+                medalha = "🥇";
+            }
 
-        item.innerHTML = `
-            <div class="ranking-posicao">
-                ${medalha || `${index + 1}º`}
-            </div>
+            else if (index === 1) {
+                medalha = "🥈";
+            }
 
-            <div class="ranking-nome">
-                ${dupla.nome}
-            </div>
+            else if (index === 2) {
+                medalha = "🥉";
+            }
 
-            <div class="ranking-pontos">
-                ${dupla.pontos}
-            </div>
-        `;
 
-        container.appendChild(item);
-    });
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "ranking-item";
+
+
+            item.innerHTML = `
+
+                <div class="ranking-posicao">
+                    ${medalha || `${index + 1}º`}
+                </div>
+
+                <div class="ranking-nome">
+                    ${dupla.nome}
+                </div>
+
+                <div class="ranking-pontos">
+                    ${dupla.pontos}
+                </div>
+
+            `;
+
+
+            container.appendChild(item);
+
+        }
+    );
+
 
     mostrarTela("telaRanking");
+
 }
 
-/* ======================================================
-   CAMPEÃO
-====================================================== */
+
+// ======================================================
+// CAMPEÃO
+// ======================================================
 
 function mostrarCampeao() {
 
-    const ranking = [...duplas].sort(
-        (a, b) => b.pontos - a.pontos
-    );
+    const ranking =
+        [...duplas].sort(
+            (a, b) =>
+                b.pontos - a.pontos
+        );
 
-    const campeao = ranking[0];
+
+    const campeao =
+        ranking[0];
+
 
     document.getElementById("nomeCampeao")
-        .textContent = campeao.nome;
+        .textContent =
+        campeao.nome;
+
 
     document.getElementById("pontuacaoCampeao")
-        .textContent = `${campeao.pontos} PONTOS`;
+        .textContent =
+        `${campeao.pontos} PONTOS`;
+
 
     mostrarTela("telaCampeao");
+
 }
 
-/* ======================================================
-   TROCAR TELA
-====================================================== */
+
+// ======================================================
+// TROCAR TELA
+// ======================================================
 
 function mostrarTela(idTela) {
 
-    document.querySelectorAll(".tela")
+    document
+        .querySelectorAll(".tela")
         .forEach(tela => {
+
             tela.classList.remove("ativa");
+
         });
 
-    document.getElementById(idTela)
+
+    document
+        .getElementById(idTela)
         .classList.add("ativa");
+
 }
 
-/* ======================================================
-   ÁUDIO
-====================================================== */
+
+// ======================================================
+// ÁUDIO
+// ======================================================
 
 function prepararAudio() {
 
@@ -537,73 +1084,124 @@ function prepararAudio() {
 
         if (!audioContext) {
 
-            audioContext = new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
         }
 
-        if (audioContext.state === "suspended") {
+
+        if (
+            audioContext.state ===
+            "suspended"
+        ) {
+
             audioContext.resume();
+
         }
-
-    } catch (erro) {
-
-        console.log("Áudio não disponível.");
 
     }
+
+    catch (erro) {
+
+        console.log(
+            "Áudio não disponível."
+        );
+
+    }
+
 }
 
-/* ======================================================
-   SOM DO RELÓGIO
-====================================================== */
+
+// ======================================================
+// SOM DOS ÚLTIMOS 10 SEGUNDOS
+// ======================================================
 
 function tocarRelogio() {
 
-    if (!audioContext) return;
+    if (!audioContext) {
+        return;
+    }
+
 
     try {
 
-        const agora = audioContext.currentTime;
+        const agora =
+            audioContext.currentTime;
 
-        const oscilador = audioContext.createOscillator();
-        const ganho = audioContext.createGain();
 
-        oscilador.type = "square";
-        oscilador.frequency.value = 750;
+        const oscilador =
+            audioContext.createOscillator();
 
-        ganho.gain.setValueAtTime(0.0001, agora);
+
+        const ganho =
+            audioContext.createGain();
+
+
+        oscilador.type =
+            "square";
+
+
+        oscilador.frequency.value =
+            750;
+
+
+        ganho.gain.setValueAtTime(
+            0.0001,
+            agora
+        );
+
 
         ganho.gain.exponentialRampToValueAtTime(
             0.12,
             agora + 0.01
         );
 
+
         ganho.gain.exponentialRampToValueAtTime(
             0.0001,
             agora + 0.12
         );
 
+
         oscilador.connect(ganho);
-        ganho.connect(audioContext.destination);
+
+        ganho.connect(
+            audioContext.destination
+        );
+
 
         oscilador.start(agora);
-        oscilador.stop(agora + 0.13);
 
-    } catch (erro) {
-
-        console.log("Erro no áudio.");
+        oscilador.stop(
+            agora + 0.13
+        );
 
     }
+
+    catch (erro) {
+
+        console.log(
+            "Erro no áudio."
+        );
+
+    }
+
 }
 
-/* ======================================================
-   SOM DE VITÓRIA
-====================================================== */
+
+// ======================================================
+// SOM DE VITÓRIA
+// ======================================================
 
 function tocarVitoria() {
 
-    if (!audioContext) return;
+    if (!audioContext) {
+        return;
+    }
+
 
     try {
 
@@ -614,40 +1212,73 @@ function tocarVitoria() {
             1046.50
         ];
 
-        notas.forEach((frequencia, index) => {
 
-            const oscilador = audioContext.createOscillator();
-            const ganho = audioContext.createGain();
+        notas.forEach(
+            (frequencia, index) => {
 
-            const inicio =
-                audioContext.currentTime + index * 0.16;
+                const oscilador =
+                    audioContext.createOscillator();
 
-            oscilador.type = "sine";
-            oscilador.frequency.value = frequencia;
 
-            ganho.gain.setValueAtTime(0.0001, inicio);
+                const ganho =
+                    audioContext.createGain();
 
-            ganho.gain.exponentialRampToValueAtTime(
-                0.18,
-                inicio + 0.02
-            );
 
-            ganho.gain.exponentialRampToValueAtTime(
-                0.0001,
-                inicio + 0.35
-            );
+                const inicio =
+                    audioContext.currentTime
+                    + index * 0.16;
 
-            oscilador.connect(ganho);
-            ganho.connect(audioContext.destination);
 
-            oscilador.start(inicio);
-            oscilador.stop(inicio + 0.36);
+                oscilador.type =
+                    "sine";
 
-        });
 
-    } catch (erro) {
+                oscilador.frequency.value =
+                    frequencia;
 
-        console.log("Erro no áudio.");
+
+                ganho.gain.setValueAtTime(
+                    0.0001,
+                    inicio
+                );
+
+
+                ganho.gain.exponentialRampToValueAtTime(
+                    0.18,
+                    inicio + 0.02
+                );
+
+
+                ganho.gain.exponentialRampToValueAtTime(
+                    0.0001,
+                    inicio + 0.35
+                );
+
+
+                oscilador.connect(ganho);
+
+                ganho.connect(
+                    audioContext.destination
+                );
+
+
+                oscilador.start(inicio);
+
+                oscilador.stop(
+                    inicio + 0.36
+                );
+
+            }
+        );
 
     }
+
+    catch (erro) {
+
+        console.log(
+            "Erro no áudio."
+        );
+
+    }
+
 }
